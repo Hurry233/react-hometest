@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { ThemeProvider } from 'next-themes'
-import { Navbar } from './components/Navbar'
+import { AICorpNavbar } from './components/AICorpNavbar'
 import Hero from './components/Hero'
 import Products from './components/Products'
 import { Features } from './components/Features'
@@ -9,7 +9,6 @@ import InteractiveGrid from './components/InteractiveGrid'
 import { CTA } from './components/CTA'
 import { Footer } from './components/Footer'
 import { site } from './config'
-import { ThemeToggle } from './components/ui/theme-toggle'
 
 export default function App() {
   const bgRef = useRef(null)
@@ -46,15 +45,8 @@ export default function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
       <div className="min-h-screen bg-background text-foreground">
-        <div className="fixed top-4 left-4 right-4 z-50 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Navbar
-              logo={{ text: 'AICorp' }}
-              navItems={site.nav}
-              actions={['登录', '开始使用']}
-              themeToggle={<ThemeToggle />}
-            />
-          </div>
+        <div className="fixed top-4 left-4 right-4 z-50">
+          <AICorpNavbar />
         </div>
 
         <main className="grid-bg" ref={bgRef} onMouseMove={onMove}>
