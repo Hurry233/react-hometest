@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function Navbar({ logo, navItems, actions, themeToggle }) {
+export function Navbar({ logo = { text: 'AICorp' }, navItems = [], actions = [], themeToggle }) {
   return (
     <nav className="nav-blur backdrop-blur-md border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between w-full">
       <div className="flex items-center gap-8">
@@ -23,12 +23,22 @@ export function Navbar({ logo, navItems, actions, themeToggle }) {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <button className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">
-          {actions[0]}
-        </button>
-        <button className="px-4 py-2 text-sm bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white rounded-lg hover:shadow-lg transition-all">
-          {actions[1]}
-        </button>
+        {actions.length > 0 && (
+          <button
+            type="button"
+            className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+          >
+            {actions[0]}
+          </button>
+        )}
+        {actions.length > 1 && (
+          <button
+            type="button"
+            className="px-4 py-2 text-sm bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white rounded-lg hover:shadow-lg transition-all"
+          >
+            {actions[1]}
+          </button>
+        )}
         {themeToggle}
       </div>
     </nav>
