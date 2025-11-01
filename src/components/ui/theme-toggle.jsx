@@ -1,19 +1,29 @@
 import React from 'react'
+import { useTheme } from 'next-themes'
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = React.useState(false)
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted ? resolvedTheme === 'dark' : true
 
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle('dark')
+    setTheme(isDark ? 'light' : 'dark')
   }
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
       className="p-2 rounded-lg bg-transparent border border-transparent hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
       aria-label="切换主题"
+      aria-pressed={isDark}
     >
+      <span className="sr-only">切换主题</span>
       {isDark ? (
         <svg
           className="w-5 h-5 text-yellow-400"

@@ -7,17 +7,19 @@ const items = [
   { title: '运维支持', desc: '7×24小时技术支持，确保系统稳定运行。' },
 ]
 
-export default function InteractiveGrid(){
+export default function InteractiveGrid() {
   return (
     <section id="cases" className="stack-xl">
-      <div className="container">
-        <div className="center" style={{marginBottom:34}}>
+      <div className="container mx-auto px-4">
+        <div className="center grid-header">
           <h2 className="h2 reveal">专业服务，全程护航</h2>
-          <p className="p reveal" style={{maxWidth:680, margin:'10px auto 0'}}>提供从咨询到部署的全流程服务，助力企业AI转型。</p>
+          <p className="p reveal grid-subtitle">
+            提供从咨询到部署的全流程服务，助力企业AI转型。
+          </p>
         </div>
         <div className="row">
-          {items.map((it, idx)=> (
-            <MagneticCard key={idx} {...it} />
+          {items.map((item, index) => (
+            <MagneticCard key={index} {...item} />
           ))}
         </div>
       </div>
@@ -25,23 +27,27 @@ export default function InteractiveGrid(){
   )
 }
 
-function MagneticCard({ title, desc }){
+function MagneticCard({ title, desc }) {
   const ref = useRef(null)
-  const onMove = (e) => {
+
+  const onMove = (event) => {
     const el = ref.current
-    if(!el) return
-    const r = el.getBoundingClientRect()
-    const x = e.clientX - r.left
-    const y = e.clientY - r.top
-    el.style.setProperty('--mx', x+'px')
-    el.style.setProperty('--my', y+'px')
+    if (!el) return
+
+    const rect = el.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    el.style.setProperty('--mx', `${x}px`)
+    el.style.setProperty('--my', `${y}px`)
   }
+
   return (
-    <div ref={ref} onMouseMove={onMove} className="card reveal col magnetic" style={{padding:24, position:'relative', overflow: 'hidden'}}>
-      <div style={{position:'absolute', inset:0, borderRadius:16, pointerEvents:'none', background:'radial-gradient(220px 180px at var(--mx,50%) var(--my,50%), rgba(124,58,237,0.18), transparent 60%)', transition: 'opacity 200ms ease', opacity: 0.8}}/>
-      <div style={{position:'relative', zIndex:1}}>
-        <h3 style={{marginTop:6, fontSize: 20}}>{title}</h3>
-        <p className="p" style={{marginTop:10}}>{desc}</p>
+    <div ref={ref} onMouseMove={onMove} className="card reveal col magnetic magnetic-card">
+      <div className="magnetic-glow" />
+      <div className="magnetic-content">
+        <h3 className="magnetic-title">{title}</h3>
+        <p className="p magnetic-desc">{desc}</p>
       </div>
     </div>
   )

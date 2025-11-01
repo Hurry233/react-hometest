@@ -1,28 +1,39 @@
 import React, { useEffect, useRef } from 'react'
 
-export function Marquee({ logos }) {
+export function Marquee({ logos = [] }) {
   const ref = useRef(null)
+
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    let raf
+
+    let rafId
     const step = () => {
       el.scrollLeft += 0.5
-      if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0
-      raf = requestAnimationFrame(step)
+      if (el.scrollLeft >= el.scrollWidth / 2) {
+        el.scrollLeft = 0
+      }
+      rafId = requestAnimationFrame(step)
     }
-    raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
+
+    rafId = requestAnimationFrame(step)
+
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
+    }
   }, [])
 
   const items = [...logos, ...logos]
+
   return (
-    <section aria-label="客户 Logo" className="stack-md">
+    <section aria-label="客户 Logo" className="stack-md marquee-section">
       <div className="container mx-auto px-4">
-        <div ref={ref} style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
-          <div style={{ display: 'inline-flex' }}>
-            {items.map((name, i) => (
-              <div key={i} className="logo" style={{ width: 160, marginRight: 16 }}>
+        <div ref={ref} className="marquee-container">
+          <div className="marquee-track">
+            {items.map((name, index) => (
+              <div key={`${name}-${index}`} className="logo marquee-item">
                 <span>{name}</span>
               </div>
             ))}

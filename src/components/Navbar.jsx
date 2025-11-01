@@ -1,36 +1,32 @@
 import React from 'react'
+import { site } from '../config'
 
-export function Navbar({ logo, navItems, actions, themeToggle }) {
+export default function Navbar() {
   return (
-    <nav className="nav-blur backdrop-blur-md border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between w-full">
-      <div className="flex items-center gap-8">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center shadow-lg">
-            <div className="w-4 h-4 bg-white rounded-sm"></div>
-          </div>
-          <span className="text-lg font-bold text-white">{logo.text}</span>
-        </div>
-        <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              className="text-sm text-gray-300 hover:text-white transition-colors"
-            >
-              {item.label}
-            </a>
+    <header className="nav-blur" style={{position:'sticky', top:0, zIndex:50}}>
+      <div className="container" style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'14px 20px', gap:12}}>
+        <a href="#" style={{display:'flex', alignItems:'center', gap:10, fontWeight:600}}>
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#7c3aed"/>
+                <stop offset="1" stopColor="#06b6d4"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="12" fill="url(#g1)"/>
+          </svg>
+          <span>AICorp</span>
+        </a>
+        <nav className="hide-mobile" style={{display:'flex', gap:22, alignItems:'center'}}>
+          {site.nav.map(i => (
+            <a key={i.label} href={i.href} className="p" style={{color:'var(--muted)'}}>{i.label}</a>
           ))}
+        </nav>
+        <div style={{display:'flex', gap:10, alignItems:'center'}}>
+          <a className="btn magnetic" href="#"><span>登录</span></a>
+          <a className="btn btn-primary magnetic" href="#"><span>免费试用</span></a>
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <button className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">
-          {actions[0]}
-        </button>
-        <button className="px-4 py-2 text-sm bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white rounded-lg hover:shadow-lg transition-all">
-          {actions[1]}
-        </button>
-        {themeToggle}
-      </div>
-    </nav>
+    </header>
   )
 }

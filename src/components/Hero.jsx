@@ -3,8 +3,7 @@ import { site } from '../config'
 import { useTypewriter } from '../hooks/useTypewriter'
 import { SplineScene } from './ui/spline'
 
-export default function Hero() {
-  const { hero } = site
+export default function Hero({ hero = site.hero }) {
   const { displayText: titleText, isComplete: titleComplete } = useTypewriter(hero.title, 80, 300)
   const { displayText: subtitleText, isComplete: subtitleComplete } = useTypewriter(hero.subtitle, 60, titleComplete ? 500 : 0)
 
@@ -25,8 +24,8 @@ export default function Hero() {
           {/* 左侧主内容区域 */}
           <div className="hero-content-zone">
             <div className="hero-content">
-              <div className="badge reveal" style={{marginBottom: 2}}>
-                <span className="dot"/>
+              <div className="badge reveal" style={{ marginBottom: '16px' }}>
+                <span className="dot" />
                 <span>{hero.eyebrow}</span>
               </div>
 
@@ -52,7 +51,7 @@ export default function Hero() {
                     key={index}
                     className="hero-btn magnetic"
                     href={button.href}
-                    style={{animationDelay: `${0.8 + index * 0.1}s`}}
+                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                   >
                     <span className="btn-icon">{button.icon}</span>
                     <span className="btn-text">{button.label}</span>
